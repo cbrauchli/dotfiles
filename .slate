@@ -1,0 +1,106 @@
+# Configs
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+config focusCheckWidthMax 3000
+# config keyboardLayout dvorak
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+#config windowHintsDuration 5
+config windowHintsSpread true
+#config windowHintsOrder persist
+
+# Monitor Aliases
+alias mon-laptop     0
+alias mon-apple      1
+
+# Misc Aliases
+alias showHintsLeftHand hint AOEUIYQJKX
+alias showNormalHint hint AOEUIDHTNSYXFBPKGMCW
+alias browser 'Safari'
+alias editor 'Sublime Text'
+alias terminal 'Terminal'
+
+# Abstract positions
+alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
+alias lefthalf      move screenOriginX;screenOriginY                  screenSizeX/2;screenSizeY
+alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY    screenSizeX/2;screenSizeY
+alias rightmost     move screenOriginX+screenSizeX*0.4;screenOriginY  screenSizeX*0.6;screenSizeY
+alias rightless     move screenOriginX+screenSizeX*0.6;screenOriginY  screenSizeX*0.4;screenSizeY
+alias leftmost      move screenOriginX;screenOriginY                  screenSizeX*0.6;screenSizeY
+alias leftless      move screenOriginX;screenOriginY                  screenSizeX*0.4;screenSizeY
+alias topleft       corner  top-left                                  resize:screenSizeX/2;screenSizeY/2
+alias topright      corner  top-right                                 resize:screenSizeX/2;screenSizeY/2
+alias bottomleft    corner  bottom-left                               resize:screenSizeX/2;screenSizeY/2
+alias bottomright   corner  bottom-right                              resize:screenSizeX/2;screenSizeY/2
+
+# Concrete positions
+alias 1-full        move screenOriginX;screenOriginY                               screenSizeX;screenSizeY                ${mon-laptop}
+alias 1-left        move screenOriginX;screenOriginY                               screenSizeX/2;screenSizeY              ${mon-laptop}
+alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY              ${mon-laptop}
+alias 2-left        move screenOriginX;screenOriginY                               screenSizeX/2;screenSizeY              ${mon-apple}
+alias 2-right       move screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY              ${mon-apple}
+alias 2-righttop    move screenOriginX+screenSizeX/2;screenOriginY                 screenSizeX/2;screenSizeY/2            ${mon-apple}
+alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2   screenSizeX/2;screenSizeY/2            ${mon-apple}
+alias 2-full        move screenOriginX;screenOriginY                               screenSizeX;screenSizeY                ${mon-apple}
+
+# Layouts
+# ================
+# 2 Monitor layout
+layout 2monitors ${terminal}:MAIN_FIRST                   ${2-rightbottom} | ${1-left}
+layout 2monitors ${browser}:REPEAT                        ${2-full}
+# layout 2monitors 'Nightly':REPEAT                         ${1-full}
+layout 2monitors 'Sublime Text':REPEAT                    ${2-full}
+# layout 2monitors 'MacVim':REPEAT                          ${1-full}
+layout 2monitors 'Mail':MAIN_FIRST                        ${2-left}
+# layout 2monitors 'Path Finder':MAIN_FIRST                 ${2-righttop}
+layout 2monitors 'Xcode':REPEAT                           ${1-full}
+# layout 2monitors 'Eclipse':REPEAT                         ${1-full}
+layout 2monitors 'Spotify':REPEAT                         ${1-full}
+layout 2monitors 'iTunes':REPEAT                          ${1-full}
+
+
+# Default Layouts
+# default 2monitors resolutions:1680x1050;2560x1440
+# default 2monitors count:2
+# default 1monitor  resolutions:${mon-laptop}
+
+
+# ======================================
+# The HYPER key
+# ======================================
+ 
+alias hyper ctrl;shift;alt;cmd
+
+# Lock screen!
+# bind l:${hyper} shell 'sleep 1 && /System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine'
+
+# Location bindings
+# bind t:${hyper} ${lefthalf}
+bind n:${hyper} ${full}
+bind s:${hyper} ${righthalf}
+bind r:${hyper} throw next
+
+# Location Bindings
+bind 1:${hyper} ${bottomleft}
+bind 2:${hyper} push bottom bar-resize:screenSizeY/2
+bind 3:${hyper} ${bottomright}
+bind 4:${hyper} ${lefthalf}
+bind 5:${hyper} ${full}
+bind 6:${hyper} ${righthalf}
+bind 7:${hyper} ${topleft}
+bind 8:${hyper} push top bar-resize:screenSizeY/2
+bind 9:${hyper} ${topright}
+
+# Grid bindings
+bind g:${hyper} grid padding:5 0:6,2 1:8,3
+
+# Focus bindings
+bind b:${hyper} focus ${browser}
+bind e:${hyper} focus ${editor}
+bind t:${hyper} focus ${terminal}
+bind c:${hyper} focus 'Adium'
+bind m:${hyper} focus 'Messages'
+bind x:${hyper} focus 'Xcode'
